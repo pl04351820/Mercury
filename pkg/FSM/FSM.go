@@ -5,14 +5,20 @@ import (
 	"fmt"
 	"Mercury/pkg/Type"
 	"github.com/aws/aws-sdk-go"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/lambda"
+	"github.com/aws/aws-sdk-go/aws"
 )
 
 func ExecuteTask(input string, output string, task Type.Task)string{
 	// Invoke Lambda function with events here.
+	ses, _ := session.NewSession(&aws.Config{Region: aws.String("us-east-1")},)
+	svc := lambda.New(ses)
+	svc.ListFunctions()
 
 
 	// Return next state
-	if task.End == True{
+	if task.End == true{
 		return "End_Signal"
 	}else{
 		return task.Next
