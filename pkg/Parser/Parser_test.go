@@ -1,7 +1,12 @@
 package Parser
 
-import "testing"
+import (
+	"testing"
+	"fmt"
+)
 
-func TestParse(t *testing.T) {
-
+func TestParser(t *testing.T) {
+	res := Parser("./demo.json")
+	fmt.Printf("%+v\n", res)
 }
+
