@@ -4,12 +4,12 @@
   "States": {
     "FirstState": {
       "Type": "Task",
-      "Resource": "arn:aws:lambda:us-east-1:123456789012:function:FUNCTION_NAME",
-      "Next": "ChoiceState"
+      "Resource": "arn:aws:lambda:us-east-1:231089512153:function:HelloFunction",
+      "Next": "SecondState"
     },
     "SecondState": {
       "Type": "Task",
-      "Resource": "arn:aws:lambda:us-east-1:123456789012:function:FUNCTION_NAME",
+      "Resource": "arn:aws:lambda:us-east-1:231089512153:function:newFlag",
       "End": true
     }
   }

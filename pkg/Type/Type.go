@@ -8,7 +8,7 @@ type StateTransit struct{
 
 type Task struct{
 	Type interface{}	`json:"Type"`
-	Resource interface{}	`json:"Resource"`
+	Resource string	`json:"Resource"`
 	Choices []StateTransit `json:"Choices"`
 	Next string `json:"Next"`
 	End bool `json:"End"`
