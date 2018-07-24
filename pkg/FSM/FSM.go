@@ -33,7 +33,6 @@ func ExecuteTask(payload []byte, task Type.Task)(string, []byte){
 	}else{
 		return task.Next, result.Payload
 	}
-
 }
 
 func FSM(){
@@ -47,6 +46,7 @@ func FSM(){
 	// Init Input Events
 	input := make(map[string]string)
 	input["who"] = "led"
+
 	payload, _ := json.Marshal(input)
 
 	EndFlag := false
