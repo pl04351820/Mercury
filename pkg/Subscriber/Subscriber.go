@@ -56,6 +56,7 @@ func ExecuteJob(job *Type.Job, input []byte) {
 func ExecuteTask(task Type.Task, input []byte) ([]byte, string, bool) {
 	res, log, err := awsClient.Invoke(task.Resource, input)
 	// TODO: ADD LOG System into ElasticSearch
+	fmt.Println(log)
 
 	if err != nil {
 		fmt.Println(err.Error())
