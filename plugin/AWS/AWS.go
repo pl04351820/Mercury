@@ -24,7 +24,7 @@ import (
 	return client
  }
 
-func (l *LambdaClient) Invoke(resource string, input []byte) ([]byte, error){
+func (l *LambdaClient) Invoke(resource string, input []byte) ([]byte, string, error){
 	result, err :=  l.Svc.Invoke(&lambda.InvokeInput{FunctionName:aws.String(resource),Payload:input})
-	return result.Payload, err
+	return result.Payload, *result.LogResult, err
 }

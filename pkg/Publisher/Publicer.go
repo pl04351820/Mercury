@@ -1,22 +1,39 @@
 package Publisher
 
-// Import packages
 import (
 	"Mercury/pkg/Type"
-	"github.com/nats-io/go-nats"
 	"encoding/json"
-	"log"
+	"github.com/nats-io/go-nats"
 )
 
-type Publisher struct{
-	NatsAddress string
+type Publisher struct {
+	Address string
+	Svc     *nats.EncodedConn
 }
 
-func (p *Publisher)Public(job Type.Job, conn nats.Conn, subject string){
-	// TODO: Parameter Check
+type MsgType struct {
+	InputEvents []byte
+	Job         Type.Job
+}
 
-	res, _ := json.Marshal(job)
-	conn.Publish(subject, res)
-	log.Println("Published Message on subject" + subject)
+func NewPublisher(address string) Publisher {
+	var client Publisher
+	client.Address = address
+	nc, _ := nats.Connect(address)
+	c, _ := nats.NewEncodedConn(nc, nats.JSON_ENCODER)
+	client.Svc = c
+	return client
+}
 
+func (p *Publisher) Public(job Type.Job, inputEvent []byte, subject string) {
+	var me MsgType
+	me.InputEvents = inputEvent
+	me.Job = job
+
+	res, _ := json.Marshal(me)
+	p.Svc.Publish(subject, res)
+}
+
+func (p *Publisher) ParamCheck() {
+	//
 }

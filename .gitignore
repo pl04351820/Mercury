@@ -2,7 +2,9 @@
 \.idea/
 
 vendor/
+\.vendor-new/
 
 Gopkg\.lock
 Gopkg\.tom
 Gopkg\.toml
+
