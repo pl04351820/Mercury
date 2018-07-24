@@ -1,4 +1,4 @@
-package main
+package Receiver
 
 // Import Go and NATS packages
 import (
@@ -7,7 +7,7 @@ import (
 	"runtime"
 )
 
-func main() {
+func Receiver() {
 	// Create server connection
 	natsConnection, _ := nats.Connect(nats.DefaultURL)
 	log.Println("Connected to " + nats.DefaultURL)
