@@ -23,6 +23,10 @@ func NewLogClient(Address string) LogClient{
 	return client
 }
 
-func (l *LogClient) InsertES(){
-	//
+func (l *LogClient) InsertES(indexName string, content string){
+	// Add Log to Elastic search
+	_, err := l.Svc.CreateIndex(indexName).BodyString(content).Do(l.Ctx)
+	if err != nil{
+		panic(err)
+	}
 }

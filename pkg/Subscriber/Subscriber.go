@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/nats-io/go-nats"
+	"Mercury/pkg/Log"
 )
 
 type Subscriber struct {
@@ -15,9 +16,11 @@ type Subscriber struct {
 }
 
 var awsClient AWS.LambdaClient
+var esClient LogService.LogClient
 
 func init() {
 	awsClient = AWS.NewLambdaClient()
+	esClient = LogService.NewLogClient("localhost:8000")
 }
 
 func NewSubscriber(address string) Subscriber {
@@ -55,8 +58,9 @@ func ExecuteJob(job *Type.Job, input []byte) {
 
 func ExecuteTask(task Type.Task, input []byte) ([]byte, string, bool) {
 	res, log, err := awsClient.Invoke(task.Resource, input)
+
 	// TODO: ADD LOG System into ElasticSearch
-	fmt.Println(log)
+	esClient.InsertES("StepFunctionTest", string(log))
 
 	if err != nil {
 		fmt.Println(err.Error())
