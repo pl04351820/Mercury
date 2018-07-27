@@ -21,3 +21,8 @@ type Job struct {
 	StartAt string `json:"StartAt"`
 	States map[string]Task `json:"States"`
 }
+
+type ESType struct{
+	TaskName string
+	LogInfo string
+}

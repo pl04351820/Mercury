@@ -7,19 +7,20 @@ import (
 )
 
 type Conf struct {
-	ElasticSearch string `yaml:"elasticsearch"`
-	Nats string `yaml:"nats"`
+	ElasticSearch string `yaml:"Elasticsearch"`
+	Nats string `yaml:"Nats"`
 }
 
-func GetConf() *Conf{
-	var c *Conf
-	file, err := ioutil.ReadFile("conf.yaml")
+func GetConf(filename string) Conf{
+	c := Conf{}
+	file, err := ioutil.ReadFile(filename)
 	if err != nil{
 		log.Printf("YamlFile.Get err #%v ", err)
 	}
-	err = yaml.Unmarshal(file, c)
+	err = yaml.Unmarshal(file, &c)
 	if err != nil{
-		log.Fatal("Unmarshal: %v", err)
+		log.Printf("Unmarshal: %v", err)
 	}
+
 	return c
 }

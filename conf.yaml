@@ -1,2 +1,2 @@
-elasticsearch : "localhost:9200"
-nats: "localhost:4222"
+"ElasticSearch" : "0.0.0.0:9200"
+"Nats" : "nats://0.0.0.0:4222"

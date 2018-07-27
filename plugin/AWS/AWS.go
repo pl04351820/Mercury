@@ -25,6 +25,7 @@ import (
  }
 
 func (l *LambdaClient) Invoke(resource string, input []byte) ([]byte, string, error){
-	result, err :=  l.Svc.Invoke(&lambda.InvokeInput{FunctionName:aws.String(resource),Payload:input})
+	logValue := "Tail"
+	result, err :=  l.Svc.Invoke(&lambda.InvokeInput{FunctionName:aws.String(resource),Payload:input, LogType:&logValue})
 	return result.Payload, *result.LogResult, err
 }
