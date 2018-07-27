@@ -1,0 +1,2 @@
+elasticsearch : "localhost:9200"
+nats: "localhost:4222"

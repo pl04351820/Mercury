@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"github.com/nats-io/go-nats"
 	"Mercury/pkg/Log"
+	"sync"
 )
 
 type Subscriber struct {
@@ -32,8 +33,10 @@ func NewSubscriber(address string) Subscriber {
 	return client
 }
 
-func (s *Subscriber) Subscribe(subject string) {
+func (s *Subscriber) Subscribe(subject string, wg sync.WaitGroup) {
 	// Infinite loop to handle goroutine
+	wg.Add(1)
+	defer wg.Done()
 	for {
 		s.Svc.Subscribe(subject, func(msg *nats.Msg) {
 			// UnMarshall

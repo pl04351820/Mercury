@@ -35,5 +35,7 @@ func (p *Publisher) Public(job Type.Job, inputEvent []byte, subject string) {
 }
 
 func (p *Publisher) ParamCheck() {
-	//
+	// TODO Implement param check.
+	// Actually we can use open source tool from AWS
+
 }

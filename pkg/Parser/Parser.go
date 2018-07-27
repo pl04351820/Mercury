@@ -4,11 +4,27 @@ import (
 	"Mercury/pkg/Type"
 	"io/ioutil"
 	"encoding/json"
+	"log"
 )
 
-func Parser(template string) Type.Job{
+func ParserJob(filename string) Type.Job{
 	var job Type.Job
-	file, _ := ioutil.ReadFile(template)
-	json.Unmarshal(file, &job)
+	file, err := ioutil.ReadFile(filename)
+	if err != nil{
+		log.Printf("JsonFile.Get err #%v ", err)
+	}
+	err = json.Unmarshal(file, &job)
+	if err != nil{
+		log.Fatal("Unmarshal: %v", err)
+	}
 	return job
+}
+
+func ParseEvents(filename string) []byte{
+	// For now, the events can only use string as its key.
+	file, err := ioutil.ReadFile(filename)
+	if err != nil{
+		log.Printf("Events file get err #%v", err)
+	}
+	return file
 }
