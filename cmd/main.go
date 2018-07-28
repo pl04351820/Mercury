@@ -2,14 +2,14 @@ package main
 
 import (
 	"Mercury/pkg/Conf"
-	"Mercury/pkg/Publisher"
 	"Mercury/pkg/Parser"
-	"sync"
+	"Mercury/pkg/Publisher"
 	"Mercury/pkg/Subscriber"
 	"fmt"
+	"sync"
 )
 
-func main(){
+func main() {
 	var wg sync.WaitGroup
 	wg.Add(1)
 	// Read configuration from file.

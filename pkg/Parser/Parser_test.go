@@ -1,12 +1,11 @@
 package Parser
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func TestParser(t *testing.T) {
 	res := Parser("./demo.json")
 	fmt.Printf("%+v\n", res)
 }
-

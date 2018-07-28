@@ -1,25 +1,25 @@
 package LogService
 
 import (
-	"context"
-	"github.com/olivere/elastic"
-	"fmt"
 	"Mercury/pkg/Type"
+	"context"
+	"fmt"
+	"github.com/olivere/elastic"
 )
 
-type LogClient struct{
+type LogClient struct {
 	Address string
-	Ctx context.Context
-	Svc *elastic.Client
+	Ctx     context.Context
+	Svc     *elastic.Client
 }
 
-func NewLogClient(Address string) LogClient{
+func NewLogClient(Address string) LogClient {
 	var client LogClient
 	client.Ctx = context.Background()
 	// Connect to ElasticSearch, turn off sniff when you use container.
 	es, err := elastic.NewClient(elastic.SetSniff(false), elastic.SetURL("http://127.0.0.1:9200/"))
 	fmt.Println("Before Panic")
-	if err != nil{
+	if err != nil {
 		panic(err)
 	}
 	fmt.Println("After Panic")
@@ -27,12 +27,11 @@ func NewLogClient(Address string) LogClient{
 	return client
 }
 
-
-func (l *LogClient) InsertES(indexName string, content Type.ESType){
+func (l *LogClient) InsertES(indexName string, content Type.ESType) {
 	// Add Log to Elastic search
 
 	_, err := l.Svc.Index().Index("stepfunction").Type("log").BodyJson(content).Do(l.Ctx)
-	if err != nil{
+	if err != nil {
 		panic(err)
 	}
 	fmt.Println("Insert INTO ES successfully!")

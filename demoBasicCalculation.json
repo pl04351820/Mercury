@@ -1,0 +1,32 @@
+{
+  "Comment": "This is an Basic Calculation for lambda service",
+  "StartAt": "FirstState",
+  "States": {
+    "FirstState": {
+      "Type": "Task",
+      "Resource": "Address",
+      "Next": "ChoiceState"
+    },
+    "ChoiceState": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.multipleResult",
+          "NumericGreaterThanEquals": 20,
+          "Next": "SecondState"
+        }
+      ],
+      "Default": "ThirdState"
+    },
+    "SecondState": {
+      "Type": "Task",
+      "Resource": "Address",
+      "End": true
+    },
+    "ThirdState": {
+      "Type": "Task",
+      "Resource": "Address",
+      "End": true
+    }
+  }
+}

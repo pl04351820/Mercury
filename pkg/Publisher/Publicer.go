@@ -3,8 +3,8 @@ package Publisher
 import (
 	"Mercury/pkg/Type"
 	"encoding/json"
-	"github.com/nats-io/go-nats"
 	"fmt"
+	"github.com/nats-io/go-nats"
 )
 
 type Publisher struct {
@@ -21,7 +21,7 @@ func NewPublisher(address string) Publisher {
 	var client Publisher
 	client.Address = address
 	nc, err := nats.Connect(address)
-	if err != nil{
+	if err != nil {
 		fmt.Printf("The NATS connection is failed %v", err.Error())
 	}
 	//c, err := nats.NewEncodedConn(nc, nats.JSON_ENCODER)
@@ -38,12 +38,12 @@ func (p *Publisher) Public(job Type.Job, inputEvent []byte, subject string) {
 	me.Job = job
 	res, err := json.Marshal(me)
 
-	if err != nil{
+	if err != nil {
 		fmt.Printf("Marshall error when public %v", err.Error())
 	}
 
 	err = p.Svc.Publish(subject, res)
-	if err != nil{
+	if err != nil {
 		fmt.Printf("Error when publishing message %v", err.Error())
 	}
 	fmt.Println("Public Successfully")

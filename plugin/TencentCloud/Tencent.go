@@ -1,16 +1,16 @@
 package TencentCloud
 
-import(
+import (
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
 	scf "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/scf/v20180416"
 )
 
-type ScfClient struct{
+type ScfClient struct {
 	Svc *scf.Client
 }
 
-func NewScfClient() ScfClient{
+func NewScfClient() ScfClient {
 	var newClient ScfClient
 
 	// For now. It does not support for reading from environment variable.
@@ -31,7 +31,7 @@ func NewScfClient() ScfClient{
 	return newClient
 }
 
-func (s *ScfClient) Invoke(functionName string, input []byte) ([]byte, error){
+func (s *ScfClient) Invoke(functionName string, input []byte) ([]byte, error) {
 	payload := string(input)
 
 	request := scf.NewInvokeRequest()
