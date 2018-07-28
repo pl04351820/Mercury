@@ -27,12 +27,29 @@ func NewLogClient(Address string) LogClient {
 	return client
 }
 
-func (l *LogClient) InsertES(indexName string, content Type.ESType) {
-	// Add Log to Elastic search
-
-	_, err := l.Svc.Index().Index("stepfunction").Type("log").BodyJson(content).Do(l.Ctx)
+func (l *LogClient) InsertES(content Type.ESType) {
+	_, err := l.Svc.Index().Index("stepFunction").Type("log").BodyJson(content).Do(l.Ctx)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println("Insert INTO ES successfully!")
+}
+
+func (l *LogClient) InitJobLog(job Type.Job){
+	esJobState := Type.JobState{}
+	stateMap := make(map[string]bool)
+	for taskName, _ := range(job.States){
+		stateMap[taskName] = false
+	}
+	esJobState.StatueInfo = stateMap
+	esJobState.JobName = "NewJob"
+	_, err := l.Svc.Index().Index("stepFunction").Type("log").BodyJson(esJobState).Do(l.Ctx)
+	if err != nil{
+		panic(err)
+	}
+	fmt.Println("Init Job State successfully!")
+}
+
+func (l *LogClient) UpdateJobLog(taskName string){
+	// Read from Es and write to it.
 }

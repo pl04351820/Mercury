@@ -53,6 +53,8 @@ func (s *Subscriber) Subscribe(subject string, wg sync.WaitGroup) {
 }
 
 func ExecuteJob(job *Type.Job, input []byte) {
+	// Add to es for first state
+
 	curState := job.StartAt
 	stateQueue := make([]string, 30)
 	stateQueue = append(stateQueue, curState)
@@ -61,6 +63,9 @@ func ExecuteJob(job *Type.Job, input []byte) {
 		stateQueue = stateQueue[1:]
 		nextState, output := States.TaskState(job.States[curState], input)
 		input = output
+
+		// Add to es for every loop
+
 		if nextState != "" {
 			stateQueue = append(stateQueue, nextState)
 		}

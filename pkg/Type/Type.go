@@ -18,6 +18,7 @@ type Task struct {
 	Cause    interface{}    `json:"Cause"`
 	Seconds  string         `json:"Seconds"`
 	Default  string			`json:"Default"`
+	Status 	 bool
 }
 
 type Job struct {
@@ -29,4 +30,9 @@ type Job struct {
 type ESType struct {
 	TaskName string
 	LogInfo  string
+}
+
+type JobState struct {
+	JobName string
+	StatueInfo map[string]bool
 }

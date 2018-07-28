@@ -24,6 +24,6 @@ func TaskState(task Type.Task, events []byte) (string, []byte) {
 
 	decodeBytes, err := base64.StdEncoding.DecodeString(logResult)
 	newLog := Type.ESType{TaskName: "new_step_function", LogInfo: string(decodeBytes)}
-	esClient.InsertES("StepFunctionLog", newLog)
+	esClient.InsertES(newLog)
 	return task.Next, res
 }
