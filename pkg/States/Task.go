@@ -5,7 +5,7 @@ import (
 	"Mercury/pkg/Type"
 	"Mercury/plugin/AWS"
 	"encoding/base64"
-	"fmt"
+	"log"
 )
 
 var awsClient AWS.LambdaClient
@@ -19,7 +19,7 @@ func init() {
 func TaskState(task Type.Task, events []byte) (string, []byte) {
 	res, logResult, err := awsClient.Invoke(task.Resource, events)
 	if err != nil {
-		fmt.Printf("Error happen when invoke AWS function %v \n", err.Error())
+		log.Printf("Error happen when invoke AWS function %v \n", err.Error())
 	}
 
 	decodeBytes, err := base64.StdEncoding.DecodeString(logResult)

@@ -3,8 +3,9 @@ package LogService
 import (
 	"Mercury/pkg/Type"
 	"context"
-	"fmt"
 	"github.com/olivere/elastic"
+	"log"
+	"Mercury/pkg/Conf"
 )
 
 type LogClient struct {
@@ -14,16 +15,12 @@ type LogClient struct {
 }
 
 func NewLogClient(Address string) LogClient {
-	var client LogClient
-	client.Ctx = context.Background()
-	// Connect to ElasticSearch, turn off sniff when you use container.
-	es, err := elastic.NewClient(elastic.SetSniff(false), elastic.SetURL("http://127.0.0.1:9200/"))
-	fmt.Println("Before Panic")
+	confObject := Conf.GetConf("conf.yaml")
+	es, err := elastic.NewClient(elastic.SetSniff(false), elastic.SetURL(confObject.ElasticSearch))
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("After Panic")
-	client.Svc = es
+	client := LogClient{Address:confObject.ElasticSearch, Svc:es, Ctx:context.Background()}
 	return client
 }
 
@@ -32,24 +29,22 @@ func (l *LogClient) InsertES(content Type.ESType) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Insert INTO ES successfully!")
+	log.Println("Insert INTO ES successfully")
 }
 
-func (l *LogClient) InitJobLog(job Type.Job){
-	esJobState := Type.JobState{}
+func (l *LogClient) InitJobLog(job Type.Job) {
 	stateMap := make(map[string]bool)
-	for taskName, _ := range(job.States){
+	for taskName, _ := range job.States {
 		stateMap[taskName] = false
 	}
-	esJobState.StatueInfo = stateMap
-	esJobState.JobName = "NewJob"
+	// TODO: Replace JobName
+	esJobState := Type.JobState{StatueInfo:stateMap, JobName:"NewJob"}
 	_, err := l.Svc.Index().Index("stepFunction").Type("log").BodyJson(esJobState).Do(l.Ctx)
-	if err != nil{
+	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Init Job State successfully!")
+	log.Println("Init Job log state successfully")
 }
 
-func (l *LogClient) UpdateJobLog(taskName string){
-	// Read from Es and write to it.
+func (l *LogClient) UpdateJobLog(taskName string) {
 }
