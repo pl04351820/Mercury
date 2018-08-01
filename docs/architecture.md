@@ -1,5 +1,9 @@
 # Architecture
 
+![Architecture][images/System Architecture.PNG]
+
+To build a scalable workflow system,
+
 ### Message System
 NATS
 

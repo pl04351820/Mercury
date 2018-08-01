@@ -1,13 +1,13 @@
 # RoadMap
 
 ## To Do
-- Implement state machine
+- Provide API Service
 - Event source architecture
-- GUI Design
-- OOD design for different protocol
+- UI Design
 
 ## Working
-- Wrap Function API in Golang
+- OOD design for different protocol
+- Document and system architecture 
 
 ## Done
--
+- Implement state machine
