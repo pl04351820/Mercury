@@ -7,7 +7,7 @@
 
 ## Working
 - OOD design for different protocol
-- Document and system architecture 
+- Document and system architecture
 
 ## Done
 - Implement state machine
