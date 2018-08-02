@@ -6,6 +6,19 @@ import (
 	"log"
 )
 
+type StateTransition struct {
+	Next string
+	OperationType string
+	OperationValue interface{}
+}
+
+type Choice struct {
+	Common CommonField
+	Choices []StateTransition
+	Default string
+}
+
+
 /*
 The type to be implemented in the future work:
 	And
@@ -28,19 +41,6 @@ The type to be implemented in the future work:
 	TimestampLessThan
 	TimestampLessThanEquals
  */
-
-type StateTransition struct {
-	Next string
-	OperationType string
-	OperationValue interface{}
-}
-
-type Choice struct {
-	Common CommonField
-	Choices []StateTransition
-	Default string
-}
-
 
 
 // Legacy
