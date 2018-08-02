@@ -6,3 +6,5 @@ type Pass struct {
 	End bool `json:"End"`
 	ResultPath string `json:"ResultPath"`
 }
+
+//func (p *Pass) ()

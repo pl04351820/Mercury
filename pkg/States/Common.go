@@ -7,4 +7,5 @@ type CommonField struct {
 	Cause interface{} `json:"Cause"`
 	InputPath string `json:"InputPath"`
 	OutputPath string `json:"OutputPath"`
+	Events interface{}
 }
