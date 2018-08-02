@@ -14,6 +14,19 @@ type LogClient struct {
 	Svc     *elastic.Client
 }
 
+type TaskLog struct {
+	State string
+	Next string
+	Log string
+}
+
+type JobLog struct {
+	JobName string
+	Entry string
+	TotalCount int
+	Tasks map[string]TaskLog
+}
+
 func NewLogClient(Address string) LogClient {
 	confObject := Conf.GetConf("conf.yaml")
 	es, err := elastic.NewClient(elastic.SetSniff(false), elastic.SetURL(confObject.ElasticSearch))
@@ -24,27 +37,24 @@ func NewLogClient(Address string) LogClient {
 	return client
 }
 
-func (l *LogClient) InsertES(content Type.ESType) {
-	_, err := l.Svc.Index().Index("stepFunction").Type("log").BodyJson(content).Do(l.Ctx)
-	if err != nil {
-		panic(err)
-	}
-	log.Println("Insert INTO ES successfully")
-}
-
+// Replace this implementation
 func (l *LogClient) InitJobLog(job Type.Job) {
-	stateMap := make(map[string]bool)
-	for taskName, _ := range job.States {
-		stateMap[taskName] = false
-	}
-	// TODO: Replace JobName
-	esJobState := Type.JobState{StatueInfo:stateMap, JobName:"NewJob"}
-	_, err := l.Svc.Index().Index("stepFunction").Type("log").BodyJson(esJobState).Do(l.Ctx)
+	totalCount := len(job.States)
+	TasksState := make(map[string]TaskLog)
+	for taskName, taskInfo := range job.States{
+		newTask := TaskLog{State: "false", Next: taskInfo.Next, Log: ""}
+		TasksState[taskName] = newTask
+		}
+
+	NewJobLog := JobLog{JobName:job.JobName, Entry:job.StartAt, TotalCount:totalCount, Tasks:TasksState}
+	_, err := l.Svc.Index().Index("stepFunction").Type("log").BodyJson(NewJobLog).Do(l.Ctx)
 	if err != nil {
 		panic(err)
 	}
 	log.Println("Init Job log state successfully")
 }
 
+//
 func (l *LogClient) UpdateJobLog(taskName string) {
+
 }

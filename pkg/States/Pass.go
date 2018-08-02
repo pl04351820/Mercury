@@ -1,8 +1,8 @@
 package States
 
-import "Mercury/pkg/Type"
-
-func PassState(task Type.Task, events []byte) (Type.Task, []byte) {
-	// Pass State Implementation
-	return task, events
+type Pass struct {
+	Common CommonField
+	Next string `json:"Next"`
+	End bool `json:"End"`
+	ResultPath string `json:"ResultPath"`
 }

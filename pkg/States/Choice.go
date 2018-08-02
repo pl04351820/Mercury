@@ -1,12 +1,49 @@
 package States
 
 import (
-	"Mercury/pkg/Type"
 	"encoding/json"
 	"github.com/oliveagle/jsonpath"
 	"log"
 )
 
+/*
+The type to be implemented in the future work:
+	And
+	BooleanEquals
+	Not
+	NumericEquals
+	NumericGreaterThan
+	NumericGreaterThanEquals
+	NumericLessThan
+	NumericLessThanEquals
+	Or
+	StringEquals
+	StringGreaterThan
+	StringGreaterThanEquals
+	StringLessThan
+	StringLessThanEquals
+	TimestampEquals
+	TimestampGreaterThan
+	TimestampGreaterThanEquals
+	TimestampLessThan
+	TimestampLessThanEquals
+ */
+
+type StateTransition struct {
+	Next string
+	OperationType string
+	OperationValue interface{}
+}
+
+type Choice struct {
+	Common CommonField
+	Choices []StateTransition
+	Default string
+}
+
+
+
+// Legacy
 func ChoiceState(task Type.Task, events []byte) (string, []byte) {
 	// JsonPaTh to read state.
 	next := ""

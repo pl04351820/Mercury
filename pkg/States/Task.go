@@ -8,6 +8,21 @@ import (
 	"log"
 )
 
+
+type Task struct {
+	Common CommonField
+	Resource string `json:"Resource"`
+	Next string `json:"Next"`
+	ResultPath string `json:"ResultPath"`
+	End bool `json:"End"`
+}
+
+
+
+
+
+
+// Legacy
 var awsClient AWS.LambdaClient
 var esClient LogService.LogClient
 

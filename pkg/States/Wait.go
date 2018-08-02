@@ -3,28 +3,22 @@ package States
 import (
 	"Mercury/pkg/Type"
 	"strconv"
-	"time"
 	"log"
+	"time"
 )
 
-/*
-The rule of Input and output processing.
+type Wait struct {
+	WaitType string
+	WaitValue interface{}
+	Next string
+	End bool
+}
 
-@Common Field.
-	Type
-	Next
-	End
-	Comment
-	InputPath
-	OutputPath
 
-@Input
-	State Field
-	Pass Transition (Json)
-@Output
-	Next Field or End State
-	Pass Transition (Json)
-*/
+
+
+
+// Legacy
 
 func WaitState(task Type.Task, events []byte) (string, []byte) {
 	// Only Support second for now.
