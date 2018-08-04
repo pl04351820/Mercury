@@ -1,6 +1,7 @@
 package States
 
 import (
+	"Mercury/pkg/Path"
 	"Mercury/plugin/AWS"
 	"log"
 )
@@ -22,16 +23,17 @@ func init() {
 	//esClient = LogService.NewLogClient("http://0.0.0.0:9200/")
 }
 
-// Log should be implemented outside the attribute.
-// Path should be handled in the method instead of out including the events.
-
-
 func (t *Task) run() string {
-	
+	pathService := Path.NewJsonPathService(t.Common.Events)
+	lambdaEvents := pathService.InputPathHandler(t.InputPath)
 
-	_, logResult, err := awsClient.Invoke(t.Resource, t.Common.Events)
+	lambdaResult, logResult, err := awsClient.Invoke(t.Resource, lambdaEvents)
 	if err != nil {
 		log.Printf("Error happen when invoke AWS function %v \n", err.Error())
 	}
+
+	pathService.ResultPathHandler(t.ResultPath, lambdaResult)
+
+	t.Common.Events = pathService.OutputPathHandler(t.OutputPath)
 	return logResult
 }

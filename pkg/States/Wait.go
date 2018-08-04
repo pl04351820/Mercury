@@ -5,13 +5,13 @@ import (
 )
 
 type Wait struct {
-	Common    CommonField
-	WaitType  string
-	WaitValue interface{}
-	Next      string
-	End       bool
-	InputPath  string      `json:"InputPath"`
-	OutputPath string      `json:"OutputPath"`
+	Common     CommonField
+	WaitType   string
+	WaitValue  interface{}
+	Next       string
+	End        bool
+	InputPath  string `json:"InputPath"`
+	OutputPath string `json:"OutputPath"`
 }
 
 func (w *Wait) run() string {

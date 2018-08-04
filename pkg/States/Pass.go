@@ -9,7 +9,7 @@ type Pass struct {
 	OutputPath string `json:"OutputPath"`
 }
 
-func (p *Pass) run() string{
+func (p *Pass) run() string {
 	// To be implement check
 	return ""
 }

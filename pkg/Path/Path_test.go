@@ -1,16 +1,12 @@
 package Path
 
 import (
-	"encoding/json"
 	"log"
 	"testing"
 )
 
 func TestNewJsonPathService(t *testing.T) {
-	testData := []byte(`{"expensive":{"Result":"Art"}}`)
-	var json_data interface{}
-	json.Unmarshal([]byte(testData), &json_data)
-	testJsonService := NewJsonPathService(json_data)
+	testJsonService := NewJsonPathService([]byte(`{"expensive":{"Result":"Art"}}`))
 
 	// Read from jsonPath
 	res := testJsonService.GetDataFromJsonPath("expensive.Result")
@@ -20,7 +16,7 @@ func TestNewJsonPathService(t *testing.T) {
 	testJsonService.WriteDataToJsonPath("expensive.Result1", "NewArt")
 
 	// Read from jsonPath
-	res = testJsonService.GetDataFromJsonPath("expensive.Result")
+	res = testJsonService.GetDataFromJsonPath("expensive.Result1")
 	log.Println(res)
 
 }
