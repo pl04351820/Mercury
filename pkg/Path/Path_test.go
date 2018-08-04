@@ -17,7 +17,7 @@ func TestNewJsonPathService(t *testing.T) {
 	log.Println(res)
 
 	// Retrieve to jsonPath
-	testJsonService.WriteDataToJsonPath("expensive.Result", "NewArt")
+	testJsonService.WriteDataToJsonPath("expensive.Result1", "NewArt")
 
 	// Read from jsonPath
 	res = testJsonService.GetDataFromJsonPath("expensive.Result")

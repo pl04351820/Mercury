@@ -10,12 +10,15 @@ type Wait struct {
 	WaitValue interface{}
 	Next      string
 	End       bool
+	InputPath  string      `json:"InputPath"`
+	OutputPath string      `json:"OutputPath"`
 }
 
 func (w *Wait) run() string {
 	switch w.WaitType {
 	case "Seconds":
 		time.Sleep(time.Duration(w.WaitValue.(int)) * time.Second)
+		break
 	}
 	return ""
 }

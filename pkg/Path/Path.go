@@ -19,10 +19,12 @@ import (
 
 type JsonPathService struct {
 	JsonData interface{}
+	RawData []byte
 }
 
-func NewJsonPathService(RawJson interface{}) JsonPathService {
-	return JsonPathService{JsonData: RawJson}
+func NewJsonPathService(JsonData interface{}, RawData []byte) JsonPathService {
+	
+	return JsonPathService{JsonData: JsonData, RawData: RawData}
 }
 
 func (j *JsonPathService) GetDataFromJsonPath(path string) interface{} {
@@ -38,4 +40,8 @@ func (j *JsonPathService) WriteDataToJsonPath(path string, content interface{}) 
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func (j *JsonPathService) GetDataFromInputPath(inputPath string) {
+
 }

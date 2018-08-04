@@ -5,7 +5,5 @@ type CommonField struct {
 	Type       string      `json:"Type"`
 	Error      interface{} `json:"Error"`
 	Cause      interface{} `json:"Cause"`
-	InputPath  string      `json:"InputPath"`
-	OutputPath string      `json:"OutputPath"`
-	Events     interface{}
+	Events     []byte
 }
