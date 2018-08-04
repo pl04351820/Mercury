@@ -5,6 +5,7 @@ import (
 )
 
 type Wait struct {
+	Common CommonField
 	WaitType string
 	WaitValue interface{}
 	Next string
