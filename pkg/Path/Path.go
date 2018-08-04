@@ -6,34 +6,36 @@ Support for Path method with aws protocol. The Path is represented by []byte.
 InputPath
 ResultPath
 OutputPath
- */
 
- import (
- 	_"github.com/oliveagle/jsonpath"
- 	_"encoding/json"
-	 "github.com/oliveagle/jsonpath"
-	 "log"
- )
+In this stage, since the golang jsonPath is short of retrieving option.
+We use another name style, adn we will change it later.
+*/
+
+import (
+	_ "encoding/json"
+	"github.com/mdaverde/jsonpath"
+	"log"
+)
 
 type JsonPathService struct {
 	JsonData interface{}
 }
 
-func NewJsonPathService (RawJson interface{}) (JsonPathService){
-	return JsonPathService{JsonData:RawJson}
+func NewJsonPathService(RawJson interface{}) JsonPathService {
+	return JsonPathService{JsonData: RawJson}
 }
 
-func (j *JsonPathService) GetDataFromJsonPath(path string)(interface{}){
-	res, err := jsonpath.JsonPathLookup(j.JsonData, path)
-	if err != nil{
-		log.Fatal("Error Happen when using json")
+func (j *JsonPathService) GetDataFromJsonPath(path string) interface{} {
+	value, err := jsonpath.Get(j.JsonData, path)
+	if err != nil {
+		log.Fatalf("Read error from jsonpath %s", value)
 	}
-	return res
+	return value
 }
 
-func (j *JsonPathService) WriteDataToJsonPath(path string, content interface{}){
-
+func (j *JsonPathService) WriteDataToJsonPath(path string, content interface{}) {
+	err := jsonpath.Set(j.JsonData, path, content)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
-
-
-

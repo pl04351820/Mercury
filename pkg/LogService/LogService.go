@@ -1,11 +1,11 @@
 package LogService
 
 import (
+	"Mercury/pkg/Conf"
 	"Mercury/pkg/Type"
 	"context"
 	"github.com/olivere/elastic"
 	"log"
-	"Mercury/pkg/Conf"
 )
 
 type LogClient struct {
@@ -16,15 +16,15 @@ type LogClient struct {
 
 type TaskLog struct {
 	State string
-	Next string
-	Log string
+	Next  string
+	Log   string
 }
 
 type JobLog struct {
-	JobName string
-	Entry string
+	JobName    string
+	Entry      string
 	TotalCount int
-	Tasks map[string]TaskLog
+	Tasks      map[string]TaskLog
 }
 
 func NewLogClient(Address string) LogClient {
@@ -33,7 +33,7 @@ func NewLogClient(Address string) LogClient {
 	if err != nil {
 		panic(err)
 	}
-	client := LogClient{Address:confObject.ElasticSearch, Svc:es, Ctx:context.Background()}
+	client := LogClient{Address: confObject.ElasticSearch, Svc: es, Ctx: context.Background()}
 	return client
 }
 
@@ -41,12 +41,12 @@ func NewLogClient(Address string) LogClient {
 func (l *LogClient) InitJobLog(job Type.Job) {
 	totalCount := len(job.States)
 	TasksState := make(map[string]TaskLog)
-	for taskName, taskInfo := range job.States{
+	for taskName, taskInfo := range job.States {
 		newTask := TaskLog{State: "false", Next: taskInfo.Next, Log: ""}
 		TasksState[taskName] = newTask
-		}
+	}
 
-	NewJobLog := JobLog{JobName:job.JobName, Entry:job.StartAt, TotalCount:totalCount, Tasks:TasksState}
+	NewJobLog := JobLog{JobName: job.JobName, Entry: job.StartAt, TotalCount: totalCount, Tasks: TasksState}
 	_, err := l.Svc.Index().Index("stepFunction").Type("log").BodyJson(NewJobLog).Do(l.Ctx)
 	if err != nil {
 		panic(err)

@@ -7,17 +7,16 @@ import (
 )
 
 type StateTransition struct {
-	Next string
-	OperationType string
+	Next           string
+	OperationType  string
 	OperationValue interface{}
 }
 
 type Choice struct {
-	Common CommonField
+	Common  CommonField
 	Choices []StateTransition
 	Default string
 }
-
 
 /*
 The type to be implemented in the future work:
@@ -40,8 +39,7 @@ The type to be implemented in the future work:
 	TimestampGreaterThanEquals
 	TimestampLessThan
 	TimestampLessThanEquals
- */
-
+*/
 
 // Legacy
 func ChoiceState(task Type.Task, events []byte) (string, []byte) {

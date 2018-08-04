@@ -22,12 +22,12 @@ func NewPublisher(address string) Publisher {
 	if err != nil {
 		log.Fatalf("The NATS connection is failed %v", err.Error())
 	}
-	client := Publisher{Address:address, Svc:nc}
+	client := Publisher{Address: address, Svc: nc}
 	return client
 }
 
 func (p *Publisher) Public(job Type.Job, inputEvent []byte, subject string) {
-	me := MsgType{InputEvents:inputEvent, Job:job}
+	me := MsgType{InputEvents: inputEvent, Job: job}
 	res, err := json.Marshal(me)
 	if err != nil {
 		log.Fatalf("Marshall error when public %v", err.Error())

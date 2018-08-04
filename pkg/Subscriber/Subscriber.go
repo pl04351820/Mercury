@@ -21,7 +21,7 @@ func NewSubscriber(address string) Subscriber {
 	if err != nil {
 		log.Fatalf("Error when connect to NATS %v ", err.Error())
 	}
-	client := Subscriber{Svc:nc, NatAddress:address}
+	client := Subscriber{Svc: nc, NatAddress: address}
 	return client
 }
 

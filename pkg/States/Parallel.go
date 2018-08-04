@@ -1,18 +1,17 @@
 package States
 
 type ParallelElement struct {
-	Type string
+	Type     string
 	Resource string
-	End bool
+	End      bool
 }
 
-type ParallelTransition struct{
+type ParallelTransition struct {
 	StateAt string
-	States map[string]ParallelElement
+	States  map[string]ParallelElement
 }
 
 type Parallel struct {
-	End bool
+	End      bool
 	Branches []ParallelTransition
 }
-
