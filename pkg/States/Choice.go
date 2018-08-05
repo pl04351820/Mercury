@@ -11,6 +11,19 @@ else:
 	OperationValue is SimpleElement
 */
 
+/*
+The type to be implemented in the future work:
+	TODO: Implement the following type in future
+	And
+	Or
+	TimestampEquals
+	TimestampGreaterThan
+	TimestampGreaterThanEquals
+	TimestampLessThan
+	TimestampLessThanEquals
+*/
+
+
 type StateTransition struct {
 	Next           string
 	OperationType  string
@@ -112,14 +125,3 @@ func (c *Choice) oneCheck(operationType string, operationBase interface{}, opera
 	return false
 }
 
-/*
-The type to be implemented in the future work:
-	TODO: Implement the following type in future
-	And
-	Or
-	TimestampEquals
-	TimestampGreaterThan
-	TimestampGreaterThanEquals
-	TimestampLessThan
-	TimestampLessThanEquals
-*/
