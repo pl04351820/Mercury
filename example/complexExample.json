@@ -1,0 +1,35 @@
+{
+  "Comment": "This is an Basic Calculation for lambda service",
+  "StartAt": "CheckWeather",
+  "States": {
+    "FirstState": {
+      "Type": "Task",
+      "Resource": "Address",
+      "Next": "ChoiceState"
+    },
+    "ChoiceState": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": ".weather",
+          "NumericGreaterThanEquals": 20.0,
+          "Next": "WarningToEmail"
+        },
+        {
+          "Variable": ".weather",
+          "NumericLessThan": 10.0,
+          "Next": "DummyPass"
+        }
+      ]
+    },
+    "WarningToEmail": {
+      "Type": "Task",
+      "Resource": "Address",
+      "End": true
+    },
+    "DummyPass": {
+      "Type": "Pass",
+      "End": true
+    }
+  }
+}

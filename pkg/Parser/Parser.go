@@ -1,30 +1,26 @@
 package Parser
 
 import (
-	"Mercury/pkg/Type"
-	"encoding/json"
-	"io/ioutil"
-	"log"
+	"Mercury/pkg/Path"
 )
 
-func ParserJob(filename string) Type.Job {
-	var job Type.Job
-	file, err := ioutil.ReadFile(filename)
-	if err != nil {
-		log.Printf("JsonFile.Get err #%v ", err)
-	}
-	err = json.Unmarshal(file, &job)
-	if err != nil {
-		log.Fatal("Unmarshal: %v", err)
-	}
-	return job
+
+type Parser struct{
+	PathSvc Path.JsonPathService
 }
 
-func ParseEvents(filename string) []byte {
-	// For now, the events can only use string as its key.
-	file, err := ioutil.ReadFile(filename)
-	if err != nil {
-		log.Printf("Events file get err #%v", err)
-	}
-	return file
+func NewParser(RawData []byte) (Parser){
+	PathServer := Path.NewJsonPathService(RawData)
+	newParser := Parser{PathSvc:PathServer}
+	return newParser
+}
+
+func (p *Parser) ParseTask(stateName string) interface{}{
+	// return specific type
+	stateType := p.PathSvc.GetDataFromJsonPath(".States" + "." + stateName + "." + "Type")
+
+	// TODO: Parse data according to different data type.
+
+
+	return 	stateType
 }
