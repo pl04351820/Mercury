@@ -14,7 +14,7 @@ type Wait struct {
 	OutputPath string `json:"OutputPath"`
 }
 
-func (w *Wait) run() string {
+func (w *Wait) Run() string {
 	switch w.WaitType {
 	case "Seconds":
 		time.Sleep(time.Duration(w.WaitValue.(int)) * time.Second)

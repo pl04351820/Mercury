@@ -43,7 +43,7 @@ type Choice struct {
 	Next       string // Use this field to represent final next in dynamic.
 }
 
-func (c *Choice) run() string {
+func (c *Choice) Run() string {
 	c.Next = c.waterFall()
 	return ""
 }

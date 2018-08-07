@@ -23,7 +23,7 @@ func init() {
 	//esClient = LogService.NewLogClient("http://0.0.0.0:9200/")
 }
 
-func (t *Task) run() string {
+func (t *Task) Run() string {
 	pathService := Path.NewJsonPathService(t.Common.Events)
 	lambdaEvents := pathService.InputPathHandler(t.InputPath)
 

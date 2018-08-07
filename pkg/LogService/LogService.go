@@ -27,7 +27,7 @@ type JobLog struct {
 	Tasks      map[string]TaskLog
 }
 
-func NewLogClient(Address string) LogClient {
+func NewLogClient() LogClient {
 	confObject := Conf.GetConf("conf.yaml")
 	es, err := elastic.NewClient(elastic.SetSniff(false), elastic.SetURL(confObject.ElasticSearch))
 	if err != nil {
@@ -38,7 +38,7 @@ func NewLogClient(Address string) LogClient {
 }
 
 // Replace this implementation
-func (l *LogClient) InitJobLog(job Type.Job) {
+func (l *LogClient) InitJobLog(jobMsg []byte) {
 	totalCount := len(job.States)
 	TasksState := make(map[string]TaskLog)
 	for taskName, taskInfo := range job.States {
@@ -55,6 +55,6 @@ func (l *LogClient) InitJobLog(job Type.Job) {
 }
 
 //
-func (l *LogClient) UpdateJobLog(taskName string) {
+func (l *LogClient) UpdateJobLog(taskName string, logText string) {
 
 }
