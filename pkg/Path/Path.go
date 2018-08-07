@@ -43,7 +43,7 @@ func NewJsonPathService(RawData []byte) JsonPathService {
 func (j *JsonPathService) GetDataFromJsonPath(path string) interface{} {
 	value, err := jsonpath.Get(j.JsonData, path)
 	if err != nil {
-		log.Fatalf("Read error from jsonpath %s", value)
+		log.Fatalf("Read error from jsonpath %v", err)
 	}
 	return value
 }

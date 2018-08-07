@@ -22,22 +22,25 @@ The type to be implemented in the future work:
 	TimestampLessThan
 	TimestampLessThanEquals
 */
-
+var CompareOperation = []interface{}{"BooleanEquals", "NumericEquals", "StringEquals", "NumericGreaterThan",
+	"StringGreaterThan", "NumericGreaterThanEquals", "StringGreaterThanEquals",
+	"NumericLessThan", "NumericLessThan", "StringLessThan", "NumericLessThanEquals",
+	"StringLessThanEquals", "Not"}
 
 type StateTransition struct {
-	Next           string
-	OperationType  string
-	OperationBase  interface{}
-	OperationRef string
+	Next          string
+	OperationType string
+	OperationBase interface{}
+	OperationRef  string
 }
 
 type Choice struct {
 	Common     CommonField
 	Choices    []StateTransition
 	Default    string
-	InputPath  string `json:"InputPath"`
-	OutputPath string `json:"OutputPath"`
-	Next       string
+	InputPath  string
+	OutputPath string
+	Next       string // Use this field to represent final next in dynamic.
 }
 
 func (c *Choice) run() string {
@@ -124,4 +127,3 @@ func (c *Choice) oneCheck(operationType string, operationBase interface{}, opera
 
 	return false
 }
-

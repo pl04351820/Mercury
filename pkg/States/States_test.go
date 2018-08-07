@@ -20,7 +20,7 @@ func TestState(t *testing.T) {
 
 	// Test Choice State
 	ChoiceState := Choice{Common: commonElement, Choices: []StateTransition{
-		{Next: "edit", OperationType: "NumericGreaterThan", OperationBase: 5.0, OperationRef:"expensive.FirstChoice"},
-		{Next: "edit2", OperationType: "NumericLessThan", OperationBase: 5.0, OperationRef:"expensive.FirstChoice"}}}
+		{Next: "edit", OperationType: "NumericGreaterThan", OperationBase: 5.0, OperationRef: "expensive.FirstChoice"},
+		{Next: "edit2", OperationType: "NumericLessThan", OperationBase: 5.0, OperationRef: "expensive.FirstChoice"}}}
 	ChoiceState.run()
 }

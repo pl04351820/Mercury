@@ -3,6 +3,7 @@
   "StartAt": "CheckWeather",
   "States": {
     "FirstState": {
+      "Comment": "Entry state",
       "Type": "Task",
       "Resource": "Address",
       "Next": "ChoiceState"

@@ -1,51 +1,36 @@
 {
-  "Comment": "An example of the Amazon States Language using a choice state.",
-  "StartAt": "FirstState",
+  "Comment": "This is an Basic Calculation for lambda service",
+  "StartAt": "CheckWeather",
   "States": {
     "FirstState": {
+      "Comment": "Entry state",
       "Type": "Task",
-      "Resource": "arn:aws:lambda:us-east-1:123456789012:function:FUNCTION_NAME",
+      "Resource": "Address",
       "Next": "ChoiceState"
     },
-
     "ChoiceState": {
-      "Type" : "Choice",
+      "Comment": "This is a choice state. If weather is larger than 20.0, warning will happen",
+      "Type": "Choice",
       "Choices": [
         {
-          "Variable": "$.foo",
-          "NumericEquals": 1,
-          "Next": "FirstMatchState"
+          "Variable": ".weather",
+          "NumericGreaterThanEquals": 20.0,
+          "Next": "WarningToEmail"
         },
         {
-          "Variable": "$.foo",
-          "NumericEquals": 2,
-          "Next": "SecondMatchState"
+          "Variable": ".weather",
+          "NumericLessThan": 20.0,
+          "Next": "DummyPass"
         }
-      ],
-      "Default": "DefaultState"
+      ]
     },
-
-    "FirstMatchState": {
-      "Type" : "Task",
-      "Resource": "arn:aws:lambda:us-east-1:123456789012:function:OnFirstMatch",
-      "Next": "NextState"
-    },
-
-    "SecondMatchState": {
-      "Type" : "Task",
-      "Resource": "arn:aws:lambda:us-east-1:123456789012:function:OnSecondMatch",
-      "Next": "NextState"
-    },
-
-    "DefaultState": {
-      "Type": "Fail",
-      "Error": "DefaultStateError",
-      "Cause": "No Matches!"
-    },
-
-    "NextState": {
+    "WarningToEmail": {
       "Type": "Task",
-      "Resource": "arn:aws:lambda:us-east-1:123456789012:function:FUNCTION_NAME",
+      "Resource": "Address",
+      "End": true
+    },
+    "DummyPass": {
+      "Type": "Pass",
       "End": true
     }
   }
