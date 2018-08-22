@@ -2,7 +2,7 @@
 
 Log Structure
 
-Init State
+Demo Init State
 ```json
 {
     JobName: DummyTest

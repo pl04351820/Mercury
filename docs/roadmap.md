@@ -1,13 +1,17 @@
 # RoadMap
 
 ## To Do
-- Provide API Service
-- Event source architecture
 - UI Design
+- Add more public providers' API interface
 
 ## Working
-- OOD design for different protocol
-- Document and system architecture
+- Replace Json with Protocol Buffers
+- Build Back-End API
 
 ## Done
-- Implement state machine
+- Implement State Machine
+- Implement Path choice
+- OOD design for different protocol
+- Document and system architecture
+- Provide API Service (Use providers' API)
+- Event source architecture

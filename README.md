@@ -21,6 +21,7 @@ The serialization method is Protocol Buffers, which takes like less time and res
 
 #### Scalability:
 Mercury aims to run distributed workflow on multiple cores on multiple machines. NATS streaming system is a good candidate for communication option since it supports for request reply, which can be used to implement both sync and async request.
+The log service is built with ElasticSearch to support huge log information.
 
 #### Fault-Tolerance:
 Mercury retrieves the log service regularly. If the task hangs up or failed, system chooses to retry and builds a new state machine.
